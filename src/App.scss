@@ -7,6 +7,7 @@ i {
 }
 button {
     border: none;
+    // display: inline;
     cursor: pointer;
     &.head-button {
         background-color: #999999;
@@ -56,6 +57,7 @@ i {
     background-color: #999999;
 }
 
+
 .visible {
     display: none;
 }
@@ -87,6 +89,7 @@ i {
             }
             &.command {
                 background-color: #999999;
+                // display: flex;
             }
         }
     }
@@ -108,6 +111,7 @@ i {
             border: none;
             text-align: left;
             width: 120px;
+            max-height: 20px;
             padding: 0;
             margin: 0;
             &:has(select) {
@@ -117,8 +121,10 @@ i {
             &.command {
                 text-align: right;
                 padding-right: 10px;
-                width: 75px;
+                width: 100px;
+                height: 20px;
                 background-color: #ced7e488;
+                // display: inline;
             }
 
             select {
@@ -170,4 +176,11 @@ i {
     tbody tr td:nth-child(3n + 1) input {
         text-align: left;
     }
+}
+
+.disabled-element {
+    background-color: '#ced7e488';
+}
+.active-element {
+    background-color: '#ffffff';
 }
