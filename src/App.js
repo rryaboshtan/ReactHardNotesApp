@@ -18,7 +18,7 @@ import './App.css';
 
 function App() {
    // const count = useSelector(state => state.toolkit.count);
-   const todos = useSelector(state => state.reducer.todos);
+   const todos = useSelector(state => state.notesReducer.notes);
    const dispatch = useDispatch();
 
    return (

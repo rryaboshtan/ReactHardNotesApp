@@ -21,8 +21,8 @@ export default function Table({ notes }) {
          </thead>
 
          <tbody className='table-body'>
-            {notes.map(note => {
-               return <TableRow oldNote={note} notes={notes} key={uuidv4()}></TableRow>;
+            {notes.map((note, index) => {
+               return <TableRow oldNote={note} index={index} key={uuidv4()}></TableRow>;
             })}
          </tbody>
       </table>

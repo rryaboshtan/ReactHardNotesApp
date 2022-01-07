@@ -1,4 +1,6 @@
 import React, { useRef, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeNote } from '../../redux/toolkitSlice';
 import CategoriesMap from './CategoriesMap';
 import { v4 as uuidv4 } from 'uuid';
 import { defineIdProperty } from '../../utils/helper';
@@ -20,10 +22,14 @@ import './table.css';
       }, delay);
    };
 }
-const TableRow = ({ oldNote, notes }) => {
+const TableRow = ({ oldNote, index }) => {
    const noteFields = Object.keys(oldNote);
-   defineIdProperty(oldNote);
+   // defineIdProperty(oldNote);
    const [note, setNote] = useState(oldNote);
+
+   const notes = useSelector(state => state.notesReducer.notes);
+   const dispatch = useDispatch();
+   
 
    const [category, setCategory] = useState(note.category);
    const [name, setName] = useState(note.name);
@@ -60,6 +66,8 @@ const TableRow = ({ oldNote, notes }) => {
          console.log(event.target.value);
          console.log(currentName.current.value);
          event.target.defaultValue = currentName.current.value;
+
+         dispatch(changeNote({note:note, index:index}));
          // if (isEditMode) {
          // const currentNoteIndex = notes.findIndex(note => note.id.toString() === currentRow.current.dataset.id);
 
@@ -99,7 +107,7 @@ const TableRow = ({ oldNote, notes }) => {
                      <select
                         onChange={onCategoryChange}
                         // onClick={onCategoryChange}
-                        className={isEditMode ? 'active-element' : 'disabled-element'}
+                        // className={isEditMode ? 'active-element' : 'disabled-element'}
                         style={isEditMode ? { backgroundColor: '#ffffff' } : { backgroundColor: '777777' }}
                         data-field={noteField}
                         disabled={!isEditMode}
