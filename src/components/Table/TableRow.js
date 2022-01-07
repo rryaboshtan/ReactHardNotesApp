@@ -20,9 +20,11 @@ import './table.css';
       }, delay);
    };
 }
-const TableRow = ({ note, notes }) => {
-   const noteFields = Object.keys(note);
-   defineIdProperty(note);
+const TableRow = ({ oldNote, notes }) => {
+   const noteFields = Object.keys(oldNote);
+   defineIdProperty(oldNote);
+   const [note, setNote] = useState(oldNote);
+
    const [category, setCategory] = useState(note.category);
    const [name, setName] = useState(note.name);
    const [created, setCreatedValue] = useState(note.created);
@@ -41,7 +43,9 @@ const TableRow = ({ note, notes }) => {
    };
 
    const onCategoryChange = event => {
-      setCategory(event.target.value);
+      // setCategory(event.target.value);
+       setNote({ ...note, [event.target.dataset.field]: event.target.value });
+       event.target.defaultValue = currentName.current.value;
       // if (isEditMode) {
          // const currentNoteIndex = notes.findIndex(note => note.id.toString() === currentRow.current.dataset.id);
 
@@ -51,7 +55,7 @@ const TableRow = ({ note, notes }) => {
       // }
    };
       const onNameChange = debounce(event => {
-         setName(event.target.value);
+         setNote({ ...note, [event.target.dataset.field]: event.target.value });
          // currentName
          console.log(event.target.value);
          console.log(currentName.current.value);
@@ -99,7 +103,8 @@ const TableRow = ({ note, notes }) => {
                         style={isEditMode ? { backgroundColor: '#ffffff' } : { backgroundColor: '777777' }}
                         data-field={noteField}
                         disabled={!isEditMode}
-                        value={category}
+                        // value={category}
+                        defaultValue={note[noteField]}
                      >
                         <option value='Task'>Task</option>
                         <option value='Random Thought'>Random Thought</option>
@@ -119,7 +124,7 @@ const TableRow = ({ note, notes }) => {
                         type='text'
                         disabled={!isEditMode}
                         ref={currentName}
-                        defaultValue={name}
+                        defaultValue={note[noteField]}
                         // value = {name}
                      ></input>
                   </td>

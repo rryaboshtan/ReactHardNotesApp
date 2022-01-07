@@ -22,7 +22,7 @@ export default function Table({ notes }) {
 
          <tbody className='table-body'>
             {notes.map(note => {
-               return <TableRow note={note} notes={notes} key={uuidv4()}></TableRow>;
+               return <TableRow oldNote={note} notes={notes} key={uuidv4()}></TableRow>;
             })}
          </tbody>
       </table>
