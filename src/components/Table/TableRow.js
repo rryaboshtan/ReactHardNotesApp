@@ -4,20 +4,44 @@ import { v4 as uuidv4 } from 'uuid';
 import { defineIdProperty } from '../../utils/helper';
 import './table.css';
 
+
+ function debounce(fn, delay = 1000) {
+   let timer = null;
+
+   if (delay === 0) {
+      return fn;
+   }
+
+   return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+         fn.apply(this, args);
+         console.log('Args = ', args);
+      }, delay);
+   };
+}
 const TableRow = ({ note, notes }) => {
    const noteFields = Object.keys(note);
    defineIdProperty(note);
-   const [selectValue, setSelectValue] = useState(note.category)
+   const [category, setCategory] = useState(note.category);
+   const [name, setName] = useState(note.name);
+   const [created, setCreatedValue] = useState(note.created);
+   const [content, setContentValue] = useState(note.content);
+   const [dates, setDatesValue] = useState(note.dates);
    const currentRow = useRef('dfgdf');
+   const currentName = useRef(name);
+
    const [isEditMode, setIsEditMode] = useState(false);
+   // let isEditMode = false;
    const [newNote, setNewNote] = useState(note);
 
    const onEditNote = () => {
       setIsEditMode(!isEditMode);
+      // isEditMode = !isEditMode;
    };
 
-   const onInputChange = event => {
-      setSelectValue(event.target.value);
+   const onCategoryChange = event => {
+      setCategory(event.target.value);
       // if (isEditMode) {
          // const currentNoteIndex = notes.findIndex(note => note.id.toString() === currentRow.current.dataset.id);
 
@@ -26,6 +50,20 @@ const TableRow = ({ note, notes }) => {
          // setNewNote({ ...newNote, [event.target.dataset.field]: event.target.value });
       // }
    };
+      const onNameChange = debounce(event => {
+         setName(event.target.value);
+         // currentName
+         console.log(event.target.value);
+         console.log(currentName.current.value);
+         event.target.defaultValue = currentName.current.value;
+         // if (isEditMode) {
+         // const currentNoteIndex = notes.findIndex(note => note.id.toString() === currentRow.current.dataset.id);
+
+         // notes[currentNoteIndex][event.target.dataset.field] = event.target.value;
+         // note[event.target.dataset.field] = event.target.value;
+         // setNewNote({ ...newNote, [event.target.dataset.field]: event.target.value });
+         // }
+      });
 
    return (
       <tr data-id={note.id} ref={currentRow}>
@@ -55,12 +93,13 @@ const TableRow = ({ note, notes }) => {
                return (
                   <td key={uuidv4()}>
                      <select
-                        onChange={onInputChange}
-                        // onClick={onInputChange}
-                        className={isEditMode ?  'active-element' :  'disabled-element'}
+                        onChange={onCategoryChange}
+                        // onClick={onCategoryChange}
+                        className={isEditMode ? 'active-element' : 'disabled-element'}
+                        style={isEditMode ? { backgroundColor: '#ffffff' } : { backgroundColor: '777777' }}
                         data-field={noteField}
                         disabled={!isEditMode}
-                        value={selectValue}
+                        value={category}
                      >
                         <option value='Task'>Task</option>
                         <option value='Random Thought'>Random Thought</option>
@@ -72,14 +111,16 @@ const TableRow = ({ note, notes }) => {
                return (
                   <td key={uuidv4()}>
                      <input
-                        onChange={onInputChange}
-                        // onClick={onInputChange}
+                        onChange={onNameChange}
+                        // onClick={onCategoryChange}
                         // className={isEditMode ? 'active-element' : 'disabled-element'}
-                        style={isEditMode ? {backgroundColor: '#ffffff'}:{backgroundColor:'777777'}}
+                        style={isEditMode ? { backgroundColor: '#ffffff' } : { backgroundColor: '777777' }}
                         data-field={noteField}
                         type='text'
-                        // disabled={!isEditMode}
-                        value={note[noteField]}
+                        disabled={!isEditMode}
+                        ref={currentName}
+                        defaultValue={name}
+                        // value = {name}
                      ></input>
                   </td>
                );
