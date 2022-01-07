@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Poppins&display=swap');
+div {
+    font-size: 15;
+}
+i {
+    font-size: 15px;
+}
+button {
+    border: none;
+    cursor: pointer;
+    &.head-button {
+        background-color: #999999;
+    }
+    &.create-note {
+        position: relative;
+        z-index: 2;
+        left: 912px;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        padding: 3px;
+        margin: 5px auto 0px auto;
+        bottom: 0px;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-size: 16;
+}
+i {
+    font-size: 22px;
+    display: inline;
+    background-color: #ced7e488;
+
+    &.head {
+        display: block;
+        color: #ffffff;
+        font-size: 14px;
+        background-color: #999999;
+    }
+    &.first-row {
+        background-color: #999999;
+        color: #000000;
+    }
+}
+.round-fon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #999999;
+}
+
+.visible {
+    display: none;
+}
+.selected-border {
+    border: 3px solid #d4c671;
+    background-color: #d4c671;
+    height: 35px;
+}
+
+.table,
+.archived-table,
+.categories-table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    margin-top: 20px;
+    font-size: 16px;
+    border: none;
+
+    thead tr {
+        padding: 0;
+        margin: 0;
+        background-color: #999999;
+        td {
+            color: #fff;
+
+            padding-left: 10px;
+            &.first-column {
+                background-color: #999999;
+            }
+            &.command {
+                background-color: #999999;
+            }
+        }
+    }
+    tbody tr td select {
+        &:disabled {
+            color: #000000;
+        }
+    }
+
+    tr {
+        height: 30px;
+        margin-top: 20px;
+        border: none;
+        border-top: 4px solid #ffffff;
+        background-color: #ced7e488;
+        font-size: 15px;
+
+        td {
+            border: none;
+            text-align: left;
+            width: 120px;
+            padding: 0;
+            margin: 0;
+            &:has(select) {
+                background-color: #ced7e488;
+            }
+
+            &.command {
+                text-align: right;
+                padding-right: 10px;
+                width: 75px;
+                background-color: #ced7e488;
+            }
+
+            select {
+                width: 160px;
+            }
+            input,
+            select {
+                width: 142px;
+                font-size: 14px;
+                outline: none;
+                border: none;
+                padding-left: 8px;
+                height: 26px;
+                background-color: #ced7e488;
+            }
+
+            &.first-column {
+                width: 20px;
+                padding-left: 2px;
+                background-color: #ced7e488;
+            }
+        }
+    }
+}
+
+.archived-table {
+    position: absolute;
+    top: 20px;
+    right: 200px;
+    z-index: 1;
+    border-top: 3px solid #000000;
+    border: 3px solid #000000;
+    background-color: #999999;
+
+    tr {
+        border-top: 3px solid #000000;
+    }
+}
+.categories-table {
+    position: absolute;
+    top: 350px;
+    left: 350px;
+    .center {
+        text-align: center;
+    }
+    tbody tr td input {
+        text-align: center;
+    }
+    tbody tr td:nth-child(3n + 1) input {
+        text-align: left;
+    }
+}
