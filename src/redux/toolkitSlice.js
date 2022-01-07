@@ -57,7 +57,10 @@ const toolkitSlice = createSlice({
    },
    reducers: {
       changeNote(state, action) {
+         // const index = action.payload.index;
          state.notes.push(action.payload.note);
+         // state.notes[index] = action.payload.note;
+         // state.notes = []
       },
       // increment(state) {
       //    state.count++;
