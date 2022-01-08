@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { increment, decrement, addTodo, removeLastTodo } from './redux/toolkitSlice';
-// import {notes} from './data.js';
+import {notes} from './data.js';
 import Table from './components/Table/Table';
 import './App.css';
 
@@ -18,7 +18,7 @@ import './App.css';
 
 function App() {
    // const count = useSelector(state => state.toolkit.count);
-   const notes = useSelector(state => state.notesReducer.notes);
+   // const notes = useSelector(state => state.notesReducer.notes);
    // const dispatch = useDispatch();
 
    return (

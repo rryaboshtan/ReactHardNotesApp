@@ -10,8 +10,8 @@ import './table.css';
 
 const TableRow = ({ oldNote, index }) => {
    const noteFields = Object.keys(oldNote);
-   const notes = useSelector(state => state.notesReducer.notes);
-   const [note, setNote] = useState(notes[index]);
+   // const notes = useSelector(state => state.notesReducer.notes);
+   const [note, setNote] = useState(oldNote);
 
    const dispatch = useDispatch();
 
@@ -27,18 +27,18 @@ const TableRow = ({ oldNote, index }) => {
       // isEditMode = !isEditMode;
    };
 
-   useEffect(() => {
+   // useEffect(() => {
    
-      dispatch(changeNote({ note: note, index: index }));
-   }, [note]);
+   //    dispatch(changeNote({ note: note, index: index }));
+   // }, [note, dispatch, index]);
   
    const onNoteFieldChange = debounce(event => {
       setNote({ ...note, [event.target.dataset.field]: event.target.value });
       console.log(event.target.value);
       console.log(currentName.current.value);
-      dispatch(changeNote({ note: note, index: index }));
+         // dispatch(changeNote({ note: note, index: index }));
 
-     
+      dispatch(changeNote({ changedElement: { name: [event.target.dataset.field], value: event.target.value }, index: index }));
    });
 
    return (
