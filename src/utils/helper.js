@@ -12,3 +12,5 @@ export function debounce(fn, delay = 1000) {
       }, delay);
    };
 }
+
+export const options = { month: 'long', day: 'numeric', year: 'numeric' };

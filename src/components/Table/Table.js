@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import TableRow from './TableRow';
 import { v4 as uuidv4 } from 'uuid';
 // import ArchiveTable from '../ArchiveTable/ArchiveTable';
 
 export default function Table({ oldNotes, isArchiveTableShowCallback, isArchiveTableShow }) {
-   const [notes, setNotes] = useState(oldNotes);
+   // const [notes, setNotes] = useState(oldNotes);
 
+   const notes = useSelector(state => state.notesReducer.notes);
    const onAllArchiveShow = () => {
       isArchiveTableShowCallback(!isArchiveTableShow);
    };
@@ -28,7 +30,7 @@ export default function Table({ oldNotes, isArchiveTableShowCallback, isArchiveT
 
          <tbody className='table-body'>
             {notes.map((note, index) => {
-               return <TableRow oldNote={note} index={index} tableCallback={setNotes} key={uuidv4()}></TableRow>;
+               return <TableRow oldNote={note} index={index} key={uuidv4()}></TableRow>;
             })}
          </tbody>
       </table>
