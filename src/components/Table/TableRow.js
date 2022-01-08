@@ -72,10 +72,10 @@ const TableRow = ({ oldNote, index }) => {
       // currentName
       console.log(event.target.value);
       console.log(currentName.current.value);
-      // setTimeout(() => {
-      //    console.log('dsfsdf', event.target.defaultValue);
-      //    // currentName.current.value = event.target.value;
-      // }, 2000);
+      setTimeout(() => {
+      dispatch(changeNote({ note: note, index: index }));
+
+      }, 2000);
 
       dispatch(changeNote({ note: note, index: index }));
 
