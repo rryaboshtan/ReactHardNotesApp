@@ -2,7 +2,7 @@ import { createReducer,createAction } from '@reduxjs/toolkit';
 const options = { month: 'long', day: 'numeric', year: 'numeric' };
 
 const initialState = {
-   todos: [
+   notes: [
       {
          name: 'Shopping list',
          created: new Date().toLocaleDateString('en-US', options),
@@ -58,14 +58,14 @@ export const changeNote = createAction('CHANGENOTE');
 export const decrement = createAction('DECREMENT');
 
 export default createReducer(initialState, {
-   [changeNote]: function (state, payload) {
-        // state.count = state.count + 1;
-        const index = payload.index;
-        state.notes[index] = payload.notes;
+   [changeNote]: function (state, action) {
+        const index = action.payload.index;
+        state.notes[index] = action.payload.note;
+        // state.notes.push(action.payload.note)
    },
-//    [decrement]: function (state) {
-//       state.count = state.count - 1;
-//    },
+   // [decrement]: function (state) {
+   //    state.count = state.count - 1;
+   // },
 });
 
 console.log(decrement);

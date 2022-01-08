@@ -27,11 +27,10 @@ const TableRow = ({ oldNote, index }) => {
       // isEditMode = !isEditMode;
    };
 
-   // useEffect(() => {
-   //    console.log('Start');
+   useEffect(() => {
    
-   //    dispatch(changeNote({ note: note, index: index }));
-   // },[note])
+      dispatch(changeNote({ note: note, index: index }));
+   }, [note]);
   
    const onNoteFieldChange = debounce(event => {
       setNote({ ...note, [event.target.dataset.field]: event.target.value });
