@@ -2,13 +2,13 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { changeNote } from '../../redux/toolkitSlice';
 import { changeNote, deleteNote } from '../../redux/toolkitReducer';
-import CategoriesMap from './CategoriesMap';
+import CategoriesMap from '../CategoriesMap';
 import { v4 as uuidv4 } from 'uuid';
 import { debounce } from '../../utils/helper';
-import './table.css';
+// import './table.css';
 
 
-const TableRow = ({ oldNote, index }) => {
+const TableRow = ({ oldNote, index}) => {
    // const noteFields = Object.keys(oldNote);
    const [noteFields, setNoteFields] = useState(Object.keys(oldNote));
 
@@ -27,6 +27,11 @@ const TableRow = ({ oldNote, index }) => {
    const onDeleteNote = (index) => {
       dispatch(deleteNote({ index: index }));
       setNoteFields({});
+   }
+
+   const onArchiveNote = () => {
+      dispatch(deleteNote({ index: index }));
+
    }
 
    const onEditNote = () => {
@@ -63,7 +68,7 @@ const TableRow = ({ oldNote, index }) => {
                            <i className='fas fa-pencil-alt'></i>
                         </button>
 
-                        <button>
+                        <button onClick={onArchiveNote}>
                            <i className='fas fa-archive'></i>
                         </button>
 

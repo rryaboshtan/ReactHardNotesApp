@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
-import TableRow from './TableRow';
+import ArchiveTableRow from './ArchiveTableRow';
 import { v4 as uuidv4 } from 'uuid';
-// import ArchiveTable from '../ArchiveTable/ArchiveTable';
 
-export default function Table({ oldNotes, isArchiveTableShowCallback, isArchiveTableShow }) {
+export default function ArchiveTable({ oldNotes }) {
    const [notes, setNotes] = useState(oldNotes);
 
-   const onAllArchiveShow = () => {
-      isArchiveTableShowCallback(!isArchiveTableShow);
-   };
    return (
-      <table className='table'>
-         <thead>
+      <table className='archived-table'>
+         {/* <thead>
             <tr>
                <td className='first-column'></td>
                <td>Name</td>
@@ -20,15 +16,15 @@ export default function Table({ oldNotes, isArchiveTableShowCallback, isArchiveT
                <td>Content</td>
                <td>Dates</td>
                <td className='command'>
-                  <i className='fas fa-archive first-row' onClick={onAllArchiveShow}></i>
+                  <i className='fas fa-archive first-row'></i>
                   <i className='fas fa-trash first-row'></i>
                </td>
             </tr>
-         </thead>
+         </thead> */}
 
-         <tbody className='table-body'>
+         <tbody className='archived-table-body'>
             {notes.map((note, index) => {
-               return <TableRow oldNote={note} index={index} tableCallback={setNotes} key={uuidv4()}></TableRow>;
+               return <ArchiveTableRow oldNote={note} index={index} key={uuidv4()}></ArchiveTableRow>;
             })}
          </tbody>
       </table>

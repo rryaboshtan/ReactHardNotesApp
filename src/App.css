@@ -201,6 +201,11 @@ i.first-row {
 
 .archived-table tr {
   border-top: 3px solid #000000;
+  background-color: #999999;
+}
+
+.archived-table tr td select {
+  background-color: #000000;
 }
 
 .categories-table {

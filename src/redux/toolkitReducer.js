@@ -56,6 +56,7 @@ const initialState = {
 
 export const changeNote = createAction('CHANGE_NOTE');
 export const deleteNote = createAction('DELETE_NOTE');
+export const appendNote = createAction('APPEND_NOTE');
 
 export default createReducer(initialState, builder => {
    builder
@@ -70,7 +71,15 @@ export default createReducer(initialState, builder => {
       .addCase(deleteNote, (state, action) => {
          const index = action.payload.index;
          state.notes.splice(index, 1);
+      })
+      .addCase(appendNote, (state, action) => {
+         // const index = action.payload.index;
+         state.notes.push(action.payload.note)
+         // state.notes.splice(index, 1);
       });
+   
+   
+   ;
 
    // [changeNote]: function (state, action) {
    //      const index = action.payload.index;
