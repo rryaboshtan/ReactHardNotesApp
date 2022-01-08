@@ -6,11 +6,12 @@ import { changeNote, appendNote, deleteNote } from '../../redux/toolkitReducer';
 import CategoriesMap from '../CategoriesMap';
 import { v4 as uuidv4 } from 'uuid';
 import { debounce } from '../../utils/helper';
+import { deleteArchivedNote } from '../../redux/archivedNotesReducer';
 // import './table.css';
 
 const ArchiveTableRow = ({ oldNote, index, notesTableCallback }) => {
    // const noteFields = Object.keys(oldNote);
-   const [noteFields, setNoteFields] = useState(Object.keys(oldNote));
+   const [noteFields, setArchivedNoteFields] = useState(Object.keys(oldNote));
 
    // const notes = useSelector(state => state.notesReducer.notes);
    const [note, setNote] = useState(oldNote);
@@ -38,10 +39,12 @@ const ArchiveTableRow = ({ oldNote, index, notesTableCallback }) => {
    //       // isEditMode = !isEditMode;
    //    };
 
-   // useEffect(() => {
-
-   //    dispatch(changeNote({ note: note, index: index }));
-   // }, [note, dispatch, index]);
+//     useEffect(() => {
+//          setArchivedNoteFields({});
+// //  dispatch(appendNote({ note: note }));
+// //  dispatch(deleteArchivedNote({ index }));
+//     //   dispatch(changeNote({ note: note, index: index }));
+//    }, [note]);
 
    const onMouseLeaveRow = event => {
       event.currentTarget.style.backgroundColor = '#777777';
@@ -49,19 +52,20 @@ const ArchiveTableRow = ({ oldNote, index, notesTableCallback }) => {
    const onMouseEnterRow = event => {
       event.currentTarget.style.backgroundColor = '#ffffff';
    };
-   const onArchiveRowClick = event => {
-      setNoteFields({});
+   const onArchiveRowClick = () => {
        dispatch(appendNote({ note: note }));
-       
+       dispatch(deleteArchivedNote({ index }));
+       setArchivedNoteFields({});
+       setArchivedNoteFields({});
    };
 
-//    const onNoteFieldChange = debounce(event => {
-//       setNote({ ...note, [event.target.dataset.field]: event.target.value });
-//       console.log(event.target.value);
-//       console.log(currentName.current.value);
+   //    const onNoteFieldChange = debounce(event => {
+   //       setNote({ ...note, [event.target.dataset.field]: event.target.value });
+   //       console.log(event.target.value);
+   //       console.log(currentName.current.value);
 
-//       dispatch(changeNote({ changedElement: { name: [event.target.dataset.field], value: event.target.value }, index: index }));
-//    });
+   //       dispatch(changeNote({ changedElement: { name: [event.target.dataset.field], value: event.target.value }, index: index }));
+   //    });
 
    return noteFields?.length ? (
       <tr
@@ -91,25 +95,24 @@ const ArchiveTableRow = ({ oldNote, index, notesTableCallback }) => {
             //             <option value='Random Thought'>Random Thought</option>
             //             <option value='Idea'>Idea</option>
             //          </select> */}
-                       
+
             //       </td>
             //    );
             // } else {
-               return (
-                  <td key={uuidv4()}>
-                     <input
-                        // onChange={onNoteFieldChange}
-                        // style={isEditMode ? { backgroundColor: '#ffffff' } : { backgroundColor: '777777' }}
-                        data-field={noteField}
-                        type='text'
-                        disabled={true}
-                        ref={currentName}
-                        defaultValue={note[noteField]}
-                     ></input>
-                  </td>
-               );
-            }
-         )}
+            return (
+               <td key={uuidv4()}>
+                  <input
+                     // onChange={onNoteFieldChange}
+                     // style={isEditMode ? { backgroundColor: '#ffffff' } : { backgroundColor: '777777' }}
+                     data-field={noteField}
+                     type='text'
+                     disabled={true}
+                     ref={currentName}
+                     defaultValue={note[noteField]}
+                  ></input>
+               </td>
+            );
+         })}
       </tr>
    ) : (
       <></>

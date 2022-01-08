@@ -6,20 +6,20 @@ const initialState = {
     ],
 };
 
-export const changeNote = createAction('CHANGE_NOTE');
+// export const changeNote = createAction('CHANGE_NOTE');
 export const deleteArchivedNote = createAction('DELETE_ARCHIVED_NOTE');
 export const appendArchivedNote = createAction('APPEND-ARCHIVED_NOTE');
 
 export default createReducer(initialState, builder => {
    builder
-      .addCase(changeNote, (state, action) => {
-         const index = action.payload.index;
+    //   .addCase(changeNote, (state, action) => {
+    //      const index = action.payload.index;
 
-         const elementName = action.payload.changedElement.name;
-         const value = action.payload.changedElement.value;
-         state.notes[index][elementName] = value;
-         // state.notes[index] = action.payload.note;
-      })
+    //      const elementName = action.payload.changedElement.name;
+    //      const value = action.payload.changedElement.value;
+    //      state.notes[index][elementName] = value;
+    //      // state.notes[index] = action.payload.note;
+    //   })
       .addCase(deleteArchivedNote, (state, action) => {
          const index = action.payload.index;
          state.archivedNotes.splice(index, 1);
