@@ -18,13 +18,13 @@ import './App.css';
 
 function App() {
    // const count = useSelector(state => state.toolkit.count);
-   const todos = useSelector(state => state.notesReducer.notes);
-   const dispatch = useDispatch();
+   // const notes = useSelector(state => state.notesReducer.notes);
+   // const dispatch = useDispatch();
 
    return (
       <div className='App'>
          
-         <Table notes = {notes}>
+         <Table oldNotes = {notes}>
             
        </Table>
 
