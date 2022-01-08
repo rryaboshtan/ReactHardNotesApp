@@ -54,18 +54,23 @@ const initialState = {
    ],
 };
 
-export const changeNote = createAction('CHANGENOTE');
-export const decrement = createAction('DECREMENT');
+export const changeNote = createAction('CHANGE_NOTE');
+export const deleteNote = createAction('DELETE_NOTE');
 
 export default createReducer(initialState, builder => {
-   builder.addCase(changeNote, (state, action) => {
-      const index = action.payload.index;
+   builder
+      .addCase(changeNote, (state, action) => {
+         const index = action.payload.index;
 
-      const elementName = action.payload.changedElement.name;
-      const value = action.payload.changedElement.value;
-      state.notes[index][elementName] = value;
+         const elementName = action.payload.changedElement.name;
+         const value = action.payload.changedElement.value;
+         state.notes[index][elementName] = value;
          // state.notes[index] = action.payload.note;
-   });
+      })
+      .addCase(deleteNote, (state, action) => {
+         const index = action.payload.index;
+         state.notes.splice(index, 1);
+      });
 
    // [changeNote]: function (state, action) {
    //      const index = action.payload.index;
@@ -79,4 +84,3 @@ export default createReducer(initialState, builder => {
    // },
 });
 
-console.log(decrement);
