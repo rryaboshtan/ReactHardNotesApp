@@ -1,9 +1,14 @@
+export function debounce(fn, delay = 1000) {
+   let timer = null;
 
-export function defineIdProperty(note) {
-   Object.defineProperty(note, 'id', {
-      enumerable: false,
-      configurable: false,
-      writable: true,
-      value: Math.random() * 200,
-   });
+   if (delay === 0) {
+      return fn;
+   }
+
+   return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+         fn.apply(this, args);
+      }, delay);
+   };
 }

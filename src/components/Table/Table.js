@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TableRow from './TableRow';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function Table({ notes }) {
+export default function Table({ oldNotes }) {
+   const [notes, setNotes] = useState(oldNotes);
+
    return (
       <table className='table'>
          <thead>
