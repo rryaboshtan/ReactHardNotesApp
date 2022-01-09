@@ -14,7 +14,6 @@ const TableRow = ({ oldNote, index, oldCategory}) => {
    const [note, setNote] = useState(oldNote);
    const dispatch = useDispatch();
    const [changedElement, setChangedElement] = useState(null);
-   // const oldCategory = note.category;
 
    const [isEditMode, setIsEditMode] = useState(false);
 
@@ -55,11 +54,10 @@ const TableRow = ({ oldNote, index, oldCategory}) => {
       if (changedElement) {
          dispatch(changeNote(changedElement));
       }
+      const changedField = changedElement?.changedElement?.name;
+      const changedValue = changedElement?.changedElement?.value;
 
-      console.log('changedElement?.changedElement?.name = ', changedElement?.changedElement?.name);
-      console.log('oldCategory', oldCategory);
-      console.log('changedElement?.changedElement?.value', changedElement?.changedElement?.value);
-      if (changedElement?.changedElement?.name === 'category') {
+      if (changedField === 'category') {
          dispatch(
             changeCategoryInfo({
                categoryName: oldCategory,
@@ -69,7 +67,7 @@ const TableRow = ({ oldNote, index, oldCategory}) => {
          );
          dispatch(
             changeCategoryInfo({
-               categoryName: changedElement?.changedElement?.value,
+               categoryName: changedValue,
                categoryField: 'active',
                isIncreased: true,
             })

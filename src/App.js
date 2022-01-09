@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { notes as oldNotes } from './data.js';
+// import { notes as oldNotes } from './data.js';
 import Table from './components/Table/Table';
 import CategoriesTable from './components/CategoriesTable/CategoriesTable.js';
 import { appendNote } from './redux/notesReducer.js';
@@ -12,7 +12,7 @@ import ArchiveTable from './components/ArchiveTable/ArchiveTable.js';
 import './App.css';
 
 function App() {
-   const [notes, setNotes] = useState(oldNotes);
+   const notes = useSelector(state => state.notesReducer.notes);
 
    const dispatch = useDispatch();
    const [isArchiveTableShown, setIsArchiveTableShown] = useState(false);
@@ -26,7 +26,6 @@ function App() {
          dates: '',
          command: '',
       };
-      setNotes([...notes, note]);
       dispatch(appendNote({ note }));
       dispatch(
          changeCategoryInfo({
