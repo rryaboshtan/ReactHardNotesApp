@@ -70,16 +70,17 @@ export default createReducer(initialState, builder => {
       })
       .addCase(deleteNote, (state, action) => {
          const index = action.payload.index;
-         state.notes.splice(index, 1);
+         // if (action.payload.previous && index >= 1) {
+            // state.notes.splice(index - 1, 1);
+         // } else {
+            state.notes.splice(index, 1);
+         // }
       })
       .addCase(appendNote, (state, action) => {
          // const index = action.payload.index;
-         state.notes.push(action.payload.note)
+         state.notes.push(action.payload.note);
          // state.notes.splice(index, 1);
       });
-   
-   
-   ;
 
    // [changeNote]: function (state, action) {
    //      const index = action.payload.index;
@@ -92,4 +93,3 @@ export default createReducer(initialState, builder => {
    //    state.count = state.count - 1;
    // },
 });
-

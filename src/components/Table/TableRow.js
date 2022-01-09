@@ -28,8 +28,10 @@ const TableRow = ({ oldNote, index }) => {
    const [isEditMode, setIsEditMode] = useState(false);
    // let isEditMode = false;
 
-   const onDeleteNote = index => {
-      dispatch(deleteNote({ index: index }));
+   const onDeleteNote = () => {
+
+      dispatch(deleteNote({ index: index, previous: true }));
+      console.log('index = ', index);
       setNoteFields({});
       dispatch(
          changeCategoryInfo({
