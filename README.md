@@ -1,10 +1,7 @@
     Used Technologies:
     - React
+    - Redux toolkit
     - SCSS
-    - GoogleMaps
-    - MongoDB
-    - Node JS
-    - Multer
 
 ### Screenshots
 ![](/public/screenshot1.png)
