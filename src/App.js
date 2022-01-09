@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { notes as oldNotes } from './data.js';
 import Table from './components/Table/Table';
 import CategoriesTable from './components/CategoriesTable/CategoriesTable.js';
-import { appendNote } from './redux/toolkitReducer.js';
+import { appendNote } from './redux/notesReducer.js';
 import { changeCategoryInfo } from './redux/categoriesReducer.js';
 import { options } from './utils/helper.js';
-
-import './App.css';
 import ArchiveTable from './components/ArchiveTable/ArchiveTable.js';
 
+import './App.css';
+
 function App() {
-   // const count = useSelector(state => state.toolkit.count);
-   // const archivedNotes = useSelector(state => state.archivedNotesReducer.archivedNotes);
-   // const archivedNotes = {};
    const [notes, setNotes] = useState(oldNotes);
 
    const dispatch = useDispatch();
@@ -30,12 +28,13 @@ function App() {
       };
       setNotes([...notes, note]);
       dispatch(appendNote({ note }));
-      dispatch(changeCategoryInfo({
-         categoryName: note.category,
-         categoryField: 'active',
-         isIncreased: true,
-      }))
-      console.log(notes); 
+      dispatch(
+         changeCategoryInfo({
+            categoryName: note.category,
+            categoryField: 'active',
+            isIncreased: true,
+         })
+      );
       setIsArchiveTableShown(false);
    };
 
@@ -52,7 +51,6 @@ function App() {
 
          {isArchiveTableShown && <ArchiveTable setIsArchiveTableShown={setIsArchiveTableShown}></ArchiveTable>}
 
-         
          <CategoriesTable></CategoriesTable>
       </div>
    );

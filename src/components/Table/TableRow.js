@@ -1,38 +1,25 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-// import { changeNote } from '../../redux/toolkitSlice';
-import { changeNote, deleteNote } from '../../redux/toolkitReducer';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+
+import { changeNote, deleteNote } from '../../redux/notesReducer';
 import { changeCategoryInfo } from '../../redux/categoriesReducer';
 import CategoriesMap from '../CategoriesMap';
-import { v4 as uuidv4 } from 'uuid';
 import { debounce } from '../../utils/helper';
 import { appendArchivedNote } from '../../redux/archivedNotesReducer';
-import { getColorizedDatesString } from '../../utils/helper';
-// import './table.css';
 
-const TableRow = ({ oldNote, index }) => {
-   // const noteFields = Object.keys(oldNote);
+const TableRow = ({ oldNote, index, oldCategory}) => {
    const [noteFields, setNoteFields] = useState(Object.keys(oldNote));
 
-   // const notes = useSelector(state => state.notesReducer.notes);
    const [note, setNote] = useState(oldNote);
-
    const dispatch = useDispatch();
    const [changedElement, setChangedElement] = useState(null);
-
-   // let changedElement = null;
-
-   const [name, setName] = useState(note.name);
-   const currentRow = useRef('dfgdf');
-   const currentName = useRef(name);
+   // const oldCategory = note.category;
 
    const [isEditMode, setIsEditMode] = useState(false);
-   // let isEditMode = false;
 
    const onDeleteNote = () => {
-
-      dispatch(deleteNote({ index: index, previous: true }));
-      console.log('index = ', index);
+      dispatch(deleteNote({ index, previous: true }));
       setNoteFields({});
       dispatch(
          changeCategoryInfo({
@@ -44,7 +31,7 @@ const TableRow = ({ oldNote, index }) => {
    };
 
    const onArchiveNote = () => {
-      dispatch(deleteNote({ index: index }));
+      dispatch(deleteNote({ index }));
 
       dispatch(appendArchivedNote({ note }));
       dispatch(
@@ -65,30 +52,41 @@ const TableRow = ({ oldNote, index }) => {
 
    const onEditNote = () => {
       setIsEditMode(!isEditMode);
-      // isEditMode = !isEditMode;
-      console.log(changedElement?.changedElement);
-      console.log(getColorizedDatesString('3/07/2022, 4/05/2022'));
-      // getColorizedDatesString('3/07/2022, 4/05/2022');
       if (changedElement) {
          dispatch(changeNote(changedElement));
+      }
+
+      console.log('changedElement?.changedElement?.name = ', changedElement?.changedElement?.name);
+      console.log('oldCategory', oldCategory);
+      console.log('changedElement?.changedElement?.value', changedElement?.changedElement?.value);
+      if (changedElement?.changedElement?.name === 'category') {
+         dispatch(
+            changeCategoryInfo({
+               categoryName: oldCategory,
+               categoryField: 'active',
+               isIncreased: false,
+            })
+         );
+         dispatch(
+            changeCategoryInfo({
+               categoryName: changedElement?.changedElement?.value,
+               categoryField: 'active',
+               isIncreased: true,
+            })
+         );
       }
    };
 
    const onNoteFieldChange = debounce(event => {
-      setNote({ ...note, [event.target.dataset.field]: event.target.value });
-      console.log(event.target.value);
-      console.log(currentName.current.value);
-      console.log('IN CHANGE');
-      setChangedElement({ changedElement: { name: [event.target.dataset.field], value: event.target.value }, index: index });
-      // changedElement = { changedElement: { name: [event.target.dataset.field], value: event.target.value }, index: index };
+      const value = event.target.value;
+      setNote({ ...note, [event.target.dataset.field]: value });
+      const changedField = event.target.dataset.field;
 
-      console.log(changedElement);
-      // dispatch(changeNote({ changedElement: { name: [event.target.dataset.field], value: event.target.value }, index: index }));
+      setChangedElement({ changedElement: { name: changedField, value }, index: index });
    });
 
    return noteFields?.length ? (
-      <tr data-id={note.id} ref={currentRow}>
-         {console.log(currentRow.current)}
+      <tr data-id={note.id}>
          <td className='first-column'>
             <CategoriesMap category={note.category}></CategoriesMap>
          </td>
@@ -115,12 +113,9 @@ const TableRow = ({ oldNote, index }) => {
                   <td key={uuidv4()}>
                      <select
                         onChange={onNoteFieldChange}
-                        // onClick={onCategoryChange}
-                        // className={isEditMode ? 'active-element' : 'disabled-element'}
                         style={isEditMode ? { backgroundColor: '#ffffff' } : { backgroundColor: '777777' }}
                         data-field={noteField}
                         disabled={!isEditMode}
-                        // value={category}
                         defaultValue={note[noteField]}
                      >
                         <option value='Task'>Task</option>
@@ -130,46 +125,20 @@ const TableRow = ({ oldNote, index }) => {
                   </td>
                );
             } else {
-               return isEditMode ? (
+               return (
                   <td key={uuidv4()}>
                      <input
                         onChange={onNoteFieldChange}
-                        // onClick={onCategoryChange}
-                        // className={isEditMode ? 'active-element' : 'disabled-element'}
                         style={isEditMode ? { backgroundColor: '#ffffff' } : { backgroundColor: '777777' }}
                         data-field={noteField}
                         type='text'
                         disabled={!isEditMode}
-                        ref={currentName}
-                        // defaultValue={note[noteField]}
-                        // defaultValue={note[noteField]}
                         defaultValue={note[noteField]}
-                        // value = {name}
                      ></input>
-                  </td>
-               ) : ( (noteField === 'dates') &&
-                  <td key={uuidv4()}>
-                     <label
-                        // onChange={onNoteFieldChange}
-                        // onClick={onCategoryChange}
-                        // className={isEditMode ? 'active-element' : 'disabled-element'}
-                        style={isEditMode ? { backgroundColor: '#ffffff' } : { backgroundColor: '777777' }}
-                        // data-field={noteField}
-                        // type='text'
-                        disabled={!isEditMode}
-                        // ref={currentName}
-                        // defaultValue={note[noteField]}
-                        // defaultValue={note[noteField]}
-                        // defaultValue={note[noteField]}
-                        // value = {name}
-                     >{getColorizedDatesString(note[noteField])}</label>
                   </td>
                );
             }
          })}
-         <label>
-            <span className='colorized'>ROMFN</span>
-         </label>
       </tr>
    ) : (
       <></>

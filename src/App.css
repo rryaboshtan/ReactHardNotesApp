@@ -19,7 +19,7 @@ button.head-button {
 button.create-note {
   position: relative;
   z-index: 2;
-  left: 912px;
+  left: 1098px;
   border: 1px solid #cccccc;
   border-radius: 3px;
   padding: 3px;
@@ -71,7 +71,7 @@ i.first-row {
 }
 
 .colorized {
-  background-color: red;
+  background-color: #ff0000;
 }
 
 .visible {
@@ -218,7 +218,7 @@ i.first-row {
 .categories-table {
   position: absolute;
   top: 350px;
-  left: 350px;
+  left: 500px;
 }
 
 .categories-table .center {

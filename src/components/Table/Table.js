@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import TableRow from './TableRow';
 import { v4 as uuidv4 } from 'uuid';
-// import ArchiveTable from '../ArchiveTable/ArchiveTable';
 
-export default function Table({ oldNotes, setIsArchiveTableShown, isArchiveTableShown }) {
-   // const [notes, setNotes] = useState(oldNotes);
+import TableRow from './TableRow';
 
+export default function Table({ setIsArchiveTableShown, isArchiveTableShown }) {
    const notes = useSelector(state => state.notesReducer.notes);
    const onAllArchiveShow = () => {
       setIsArchiveTableShown(!isArchiveTableShown);
@@ -30,7 +28,7 @@ export default function Table({ oldNotes, setIsArchiveTableShown, isArchiveTable
 
          <tbody className='table-body'>
             {notes.map((note, index) => {
-               return <TableRow oldNote={note} index={index} key={uuidv4()}></TableRow>;
+               return <TableRow oldCategory={note.category} oldNote={note} index={index} key={uuidv4()}></TableRow>;
             })}
          </tbody>
       </table>

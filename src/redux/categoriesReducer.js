@@ -18,7 +18,6 @@ const initialState = {
 };
 
 export const changeCategoryInfo = createAction('CHANGE_CATEGORY_INFO');
-// export const decrementCategoryInfo = createAction('CHANGE_CATEGORY_INFO');
 
 export default createReducer(initialState, builder => {
    builder.addCase(changeCategoryInfo, (state, action) => {
