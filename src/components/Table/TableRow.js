@@ -8,7 +8,7 @@ import { debounce } from '../../utils/helper';
 import { appendArchivedNote } from '../../redux/archivedNotesReducer';
 // import './table.css';
 
-const TableRow = ({ oldNote, index}) => {
+const TableRow = ({ oldNote, index }) => {
    // const noteFields = Object.keys(oldNote);
    const [noteFields, setNoteFields] = useState(Object.keys(oldNote));
 
@@ -16,6 +16,10 @@ const TableRow = ({ oldNote, index}) => {
    const [note, setNote] = useState(oldNote);
 
    const dispatch = useDispatch();
+   const [changedElement, setChangedElement] = useState(null);
+
+
+   // let changedElement = null;
 
    const [name, setName] = useState(note.name);
    const currentRow = useRef('dfgdf');
@@ -33,12 +37,15 @@ const TableRow = ({ oldNote, index}) => {
       dispatch(deleteNote({ index: index }));
 
       dispatch(appendArchivedNote({ note }));
-
    };
 
    const onEditNote = () => {
       setIsEditMode(!isEditMode);
       // isEditMode = !isEditMode;
+      console.log(changedElement?.changedElement)
+      if (changedElement) {
+         dispatch(changeNote(changedElement));
+      }
    };
    // useEffect(() => {
    //    console.log(props.children);
@@ -53,8 +60,12 @@ const TableRow = ({ oldNote, index}) => {
       setNote({ ...note, [event.target.dataset.field]: event.target.value });
       console.log(event.target.value);
       console.log(currentName.current.value);
+      console.log('IN CHANGE');
+      setChangedElement({ changedElement: { name: [event.target.dataset.field], value: event.target.value }, index: index });
+      // changedElement = { changedElement: { name: [event.target.dataset.field], value: event.target.value }, index: index };
 
-      dispatch(changeNote({ changedElement: { name: [event.target.dataset.field], value: event.target.value }, index: index }));
+      console.log(changedElement)
+      // dispatch(changeNote({ changedElement: { name: [event.target.dataset.field], value: event.target.value }, index: index }));
    });
 
    return noteFields?.length ? (
