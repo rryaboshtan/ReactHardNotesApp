@@ -4,12 +4,12 @@ import TableRow from './TableRow';
 import { v4 as uuidv4 } from 'uuid';
 // import ArchiveTable from '../ArchiveTable/ArchiveTable';
 
-export default function Table({ oldNotes, isArchiveTableShowCallback, isArchiveTableShow }) {
+export default function Table({ oldNotes, setIsArchiveTableShown, isArchiveTableShown }) {
    // const [notes, setNotes] = useState(oldNotes);
 
    const notes = useSelector(state => state.notesReducer.notes);
    const onAllArchiveShow = () => {
-      isArchiveTableShowCallback(!isArchiveTableShow);
+      setIsArchiveTableShown(!isArchiveTableShown);
    };
    return (
       <table className='table'>

@@ -15,7 +15,7 @@ function App() {
    const [notes, setNotes] = useState(oldNotes);
 
    const dispatch = useDispatch();
-   const [isArchiveTableShow, setIsArchiveTableShow] = useState(false);
+   const [isArchiveTableShown, setIsArchiveTableShown] = useState(false);
 
    const onAppendNewNote = () => {
       const note = {
@@ -29,25 +29,17 @@ function App() {
       setNotes([...notes, note]);
       dispatch(appendNote({ note }));
       console.log(notes); 
-      setIsArchiveTableShow(false);
+      setIsArchiveTableShown(false);
    };
 
    return (
       <div className='App'>
-         <Table
-            oldNotes={notes}
-            isArchiveTableShowCallback={setIsArchiveTableShow}
-            isArchiveTableShow={isArchiveTableShow}
-         ></Table>
+         <Table oldNotes={notes} setIsArchiveTableShown={setIsArchiveTableShown} isArchiveTableShown={isArchiveTableShown}></Table>
          <button onClick={onAppendNewNote} className='create-note'>
             Create Note
          </button>
 
-         {isArchiveTableShow && (
-            <ArchiveTable
-               isArchiveTableShowCallback={setIsArchiveTableShow}
-            ></ArchiveTable>
-         )}
+         {isArchiveTableShown && <ArchiveTable setIsArchiveTableShown={setIsArchiveTableShown}></ArchiveTable>}
       </div>
    );
 }

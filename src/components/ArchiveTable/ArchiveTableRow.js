@@ -9,7 +9,7 @@ import { debounce } from '../../utils/helper';
 import { deleteArchivedNote } from '../../redux/archivedNotesReducer';
 // import './table.css';
 
-const ArchiveTableRow = ({ oldNote, index, archivedNotesCount, notesTableCallback, isArchiveTableShowCallback }) => {
+const ArchiveTableRow = ({ oldNote, index, archivedNotesCount, notesTableCallback, setIsArchiveTableShown }) => {
    // const noteFields = Object.keys(oldNote);
    const [noteFields, setArchivedNoteFields] = useState(Object.keys(oldNote));
 
@@ -55,7 +55,7 @@ const ArchiveTableRow = ({ oldNote, index, archivedNotesCount, notesTableCallbac
    const onArchiveRowClick = () => {
       setArchivedNoteFields({});
       if (archivedNotesCount === 1) {
-         isArchiveTableShowCallback(false);
+         setIsArchiveTableShown(false);
       }
       // setTimeout(() => {
       dispatch(appendNote({ note: note }));
