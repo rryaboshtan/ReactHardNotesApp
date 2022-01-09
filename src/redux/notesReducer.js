@@ -1,5 +1,5 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
-const options = { month: 'long', day: 'numeric', year: 'numeric' };
+import { options } from '../utils/helper';
 
 const initialState = {
    notes: [
