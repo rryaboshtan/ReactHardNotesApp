@@ -57,6 +57,10 @@ i {
     background-color: #999999;
 }
 
+.colorized {
+    background-color: red;
+}
+
 .visible {
     display: none;
 }
@@ -130,7 +134,8 @@ i {
                 width: 160px;
             }
             input,
-            select {
+            select,
+            label {
                 width: 142px;
                 font-size: 14px;
                 outline: none;

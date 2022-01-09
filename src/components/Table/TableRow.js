@@ -7,6 +7,7 @@ import CategoriesMap from '../CategoriesMap';
 import { v4 as uuidv4 } from 'uuid';
 import { debounce } from '../../utils/helper';
 import { appendArchivedNote } from '../../redux/archivedNotesReducer';
+import { getColorizedDatesString } from '../../utils/helper';
 // import './table.css';
 
 const TableRow = ({ oldNote, index }) => {
@@ -66,6 +67,8 @@ const TableRow = ({ oldNote, index }) => {
       setIsEditMode(!isEditMode);
       // isEditMode = !isEditMode;
       console.log(changedElement?.changedElement);
+      console.log(getColorizedDatesString('3/07/2022, 4/05/2022'));
+      // getColorizedDatesString('3/07/2022, 4/05/2022');
       if (changedElement) {
          dispatch(changeNote(changedElement));
       }
@@ -127,7 +130,7 @@ const TableRow = ({ oldNote, index }) => {
                   </td>
                );
             } else {
-               return (
+               return isEditMode ? (
                   <td key={uuidv4()}>
                      <input
                         onChange={onNoteFieldChange}
@@ -138,13 +141,35 @@ const TableRow = ({ oldNote, index }) => {
                         type='text'
                         disabled={!isEditMode}
                         ref={currentName}
+                        // defaultValue={note[noteField]}
+                        // defaultValue={note[noteField]}
                         defaultValue={note[noteField]}
                         // value = {name}
                      ></input>
                   </td>
+               ) : ( (noteField === 'dates') &&
+                  <td key={uuidv4()}>
+                     <label
+                        // onChange={onNoteFieldChange}
+                        // onClick={onCategoryChange}
+                        // className={isEditMode ? 'active-element' : 'disabled-element'}
+                        style={isEditMode ? { backgroundColor: '#ffffff' } : { backgroundColor: '777777' }}
+                        // data-field={noteField}
+                        // type='text'
+                        disabled={!isEditMode}
+                        // ref={currentName}
+                        // defaultValue={note[noteField]}
+                        // defaultValue={note[noteField]}
+                        // defaultValue={note[noteField]}
+                        // value = {name}
+                     >{getColorizedDatesString(note[noteField])}</label>
+                  </td>
                );
             }
          })}
+         <label>
+            <span className='colorized'>ROMFN</span>
+         </label>
       </tr>
    ) : (
       <></>

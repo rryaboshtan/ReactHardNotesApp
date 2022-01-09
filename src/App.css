@@ -70,6 +70,10 @@ i.first-row {
   background-color: #999999;
 }
 
+.colorized {
+  background-color: red;
+}
+
 .visible {
   display: none;
 }
@@ -168,10 +172,13 @@ i.first-row {
 
 .table tr td input,
 .table tr td select,
+.table tr td label,
 .archived-table tr td input,
 .archived-table tr td select,
+.archived-table tr td label,
 .categories-table tr td input,
-.categories-table tr td select {
+.categories-table tr td select,
+.categories-table tr td label {
   width: 142px;
   font-size: 14px;
   outline: none;
