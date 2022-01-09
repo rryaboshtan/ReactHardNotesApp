@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { changeNote } from '../../redux/toolkitSlice';
 import { changeNote, appendNote, deleteNote } from '../../redux/toolkitReducer';
+import { changeCategoryInfo } from '../../redux/categoriesReducer';
 // import CategoriesMap from './CategoriesMap';
 import CategoriesMap from '../CategoriesMap';
 import { v4 as uuidv4 } from 'uuid';
@@ -61,6 +62,20 @@ const ArchiveTableRow = ({ oldNote, index, archivedNotesCount, notesTableCallbac
       dispatch(appendNote({ note: note }));
       dispatch(deleteArchivedNote({ index }));
       // }, 500);
+      dispatch(
+         changeCategoryInfo({
+            categoryName: note.category,
+            categoryField: 'archived',
+            isIncreased: false,
+         })
+      );
+      dispatch(
+         changeCategoryInfo({
+            categoryName: note.category,
+            categoryField: 'active',
+            isIncreased: true,
+         })
+      );
    };
 
    //    const onNoteFieldChange = debounce(event => {

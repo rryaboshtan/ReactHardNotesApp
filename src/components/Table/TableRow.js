@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { changeNote } from '../../redux/toolkitSlice';
 import { changeNote, deleteNote } from '../../redux/toolkitReducer';
+import { changeCategoryInfo } from '../../redux/categoriesReducer';
 import CategoriesMap from '../CategoriesMap';
 import { v4 as uuidv4 } from 'uuid';
 import { debounce } from '../../utils/helper';
@@ -18,7 +19,6 @@ const TableRow = ({ oldNote, index }) => {
    const dispatch = useDispatch();
    const [changedElement, setChangedElement] = useState(null);
 
-
    // let changedElement = null;
 
    const [name, setName] = useState(note.name);
@@ -31,30 +31,43 @@ const TableRow = ({ oldNote, index }) => {
    const onDeleteNote = index => {
       dispatch(deleteNote({ index: index }));
       setNoteFields({});
+      dispatch(
+         changeCategoryInfo({
+            categoryName: note.category,
+            categoryField: 'active',
+            isIncreased: false,
+         })
+      );
    };
 
    const onArchiveNote = () => {
       dispatch(deleteNote({ index: index }));
 
       dispatch(appendArchivedNote({ note }));
+      dispatch(
+         changeCategoryInfo({
+            categoryName: note.category,
+            categoryField: 'archived',
+            isIncreased: true,
+         })
+      );
+      dispatch(
+         changeCategoryInfo({
+            categoryName: note.category,
+            categoryField: 'active',
+            isIncreased: false,
+         })
+      );
    };
 
    const onEditNote = () => {
       setIsEditMode(!isEditMode);
       // isEditMode = !isEditMode;
-      console.log(changedElement?.changedElement)
+      console.log(changedElement?.changedElement);
       if (changedElement) {
          dispatch(changeNote(changedElement));
       }
    };
-   // useEffect(() => {
-   //    console.log(props.children);
-   // }, [children]);
-
-   // useEffect(() => {
-
-   //    dispatch(changeNote({ note: note, index: index }));
-   // }, [note, dispatch, index]);
 
    const onNoteFieldChange = debounce(event => {
       setNote({ ...note, [event.target.dataset.field]: event.target.value });
@@ -64,7 +77,7 @@ const TableRow = ({ oldNote, index }) => {
       setChangedElement({ changedElement: { name: [event.target.dataset.field], value: event.target.value }, index: index });
       // changedElement = { changedElement: { name: [event.target.dataset.field], value: event.target.value }, index: index };
 
-      console.log(changedElement)
+      console.log(changedElement);
       // dispatch(changeNote({ changedElement: { name: [event.target.dataset.field], value: event.target.value }, index: index }));
    });
 

@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { notes as oldNotes } from './data.js';
 import Table from './components/Table/Table';
+import CategoriesTable from './components/CategoriesTable/CategoriesTable.js';
 import { appendNote } from './redux/toolkitReducer.js';
+import { changeCategoryInfo } from './redux/categoriesReducer.js';
 import { options } from './utils/helper.js';
 
 import './App.css';
@@ -28,18 +30,30 @@ function App() {
       };
       setNotes([...notes, note]);
       dispatch(appendNote({ note }));
+      dispatch(changeCategoryInfo({
+         categoryName: note.category,
+         categoryField: 'active',
+         isIncreased: true,
+      }))
       console.log(notes); 
       setIsArchiveTableShown(false);
    };
 
    return (
       <div className='App'>
-         <Table oldNotes={notes} setIsArchiveTableShown={setIsArchiveTableShown} isArchiveTableShown={isArchiveTableShown}></Table>
+         <Table
+            oldNotes={notes}
+            setIsArchiveTableShown={setIsArchiveTableShown}
+            isArchiveTableShown={isArchiveTableShown}
+         ></Table>
          <button onClick={onAppendNewNote} className='create-note'>
             Create Note
          </button>
 
          {isArchiveTableShown && <ArchiveTable setIsArchiveTableShown={setIsArchiveTableShown}></ArchiveTable>}
+
+         
+         <CategoriesTable></CategoriesTable>
       </div>
    );
 }
