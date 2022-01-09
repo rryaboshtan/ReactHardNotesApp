@@ -9,7 +9,7 @@ import { debounce } from '../../utils/helper';
 import { deleteArchivedNote } from '../../redux/archivedNotesReducer';
 // import './table.css';
 
-const ArchiveTableRow = ({ oldNote, index, notesTableCallback }) => {
+const ArchiveTableRow = ({ oldNote, index, archivedNotesCount, notesTableCallback, isArchiveTableShowCallback }) => {
    // const noteFields = Object.keys(oldNote);
    const [noteFields, setArchivedNoteFields] = useState(Object.keys(oldNote));
 
@@ -39,12 +39,12 @@ const ArchiveTableRow = ({ oldNote, index, notesTableCallback }) => {
    //       // isEditMode = !isEditMode;
    //    };
 
-//     useEffect(() => {
-//          setArchivedNoteFields({});
-// //  dispatch(appendNote({ note: note }));
-// //  dispatch(deleteArchivedNote({ index }));
-//     //   dispatch(changeNote({ note: note, index: index }));
-//    }, [note]);
+   //     useEffect(() => {
+   //          setArchivedNoteFields({});
+   // //  dispatch(appendNote({ note: note }));
+   // //  dispatch(deleteArchivedNote({ index }));
+   //     //   dispatch(changeNote({ note: note, index: index }));
+   //    }, [note]);
 
    const onMouseLeaveRow = event => {
       event.currentTarget.style.backgroundColor = '#777777';
@@ -53,10 +53,14 @@ const ArchiveTableRow = ({ oldNote, index, notesTableCallback }) => {
       event.currentTarget.style.backgroundColor = '#ffffff';
    };
    const onArchiveRowClick = () => {
-       dispatch(appendNote({ note: note }));
-       dispatch(deleteArchivedNote({ index }));
-       setArchivedNoteFields({});
-       setArchivedNoteFields({});
+      setArchivedNoteFields({});
+      if (archivedNotesCount === 1) {
+         isArchiveTableShowCallback(false);
+      }
+      // setTimeout(() => {
+      dispatch(appendNote({ note: note }));
+      dispatch(deleteArchivedNote({ index }));
+      // }, 500);
    };
 
    //    const onNoteFieldChange = debounce(event => {

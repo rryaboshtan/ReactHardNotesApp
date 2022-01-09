@@ -27,6 +27,7 @@ export default createReducer(initialState, builder => {
       .addCase(appendArchivedNote, (state, action) => {
          // const index = action.payload.index;
          state.archivedNotes.push(action.payload.note);
+         // state.archivedNotes = state.archivedNotes.concat([action.payload.note]);
          // state.notes.splice(index, 1);
       });
 

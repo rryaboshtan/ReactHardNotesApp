@@ -10,7 +10,8 @@ import ArchiveTable from './components/ArchiveTable/ArchiveTable.js';
 
 function App() {
    // const count = useSelector(state => state.toolkit.count);
-   const archivedNotes = useSelector(state => state.archivedNotesReducer.archivedNotes);
+   // const archivedNotes = useSelector(state => state.archivedNotesReducer.archivedNotes);
+   // const archivedNotes = {};
    const [notes, setNotes] = useState(oldNotes);
 
    const dispatch = useDispatch();
@@ -42,7 +43,11 @@ function App() {
             Create Note
          </button>
 
-         {isArchiveTableShow && <ArchiveTable oldNotes={archivedNotes}></ArchiveTable>}
+         {isArchiveTableShow && (
+            <ArchiveTable
+               isArchiveTableShowCallback={setIsArchiveTableShow}
+            ></ArchiveTable>
+         )}
       </div>
    );
 }
